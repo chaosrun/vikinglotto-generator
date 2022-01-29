@@ -1,6 +1,7 @@
 # vikinglotto-generator
 
 本程序用于生成一组 [Vikinglotto](https://en.wikipedia.org/wiki/Vikinglotto) 的机选彩票号码，
+
 输出的结果支持通过 `cowsay` 来显示，以增加趣味性。生成过的号码会记录在日志文件中，以便有需要时查验。
 
 [English instruction](./README.md)
@@ -18,7 +19,7 @@ sudo apt install cowsay -y
 
 ## 安装
 
-使用 pip：
+使用 `pip`：
 
 ```bash
 python3 -m pip install vikinglotto
