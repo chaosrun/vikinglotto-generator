@@ -95,6 +95,7 @@ def show_plain(text: str) -> bool:
     try:
         text = text.replace("\n\n", "\n")
         print(f"\n{text}\n")
+        print_log(text)
         result = True
     except Exception as e:
         logger.warning(f"Show plain error: {e}", exc_info=True)
