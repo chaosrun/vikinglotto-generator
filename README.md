@@ -3,7 +3,7 @@
 This program generates a set of randomly picked 
 [Vikinglotto](https://en.wikipedia.org/wiki/Vikinglotto) lottery numbers.
 
-The program's output supports showing the findings using `cowsay` for added interest.
+The program's output supports showing the result using `cowsay` for added fun.
 The generated numbers are stored in a log file and can be reviewed if necessary. 
 
 [中文说明](./README_CN.md)
