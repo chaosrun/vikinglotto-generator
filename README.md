@@ -6,6 +6,8 @@ This program generates a set of randomly picked
 The program's output supports showing the result using `cowsay` for added fun.
 The generated numbers are stored in a log file and can be reviewed if necessary. 
 
+![Demo](./img/demo.png)
+
 [中文说明](./README_CN.md)
 
 ## Requirements

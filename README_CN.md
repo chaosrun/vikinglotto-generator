@@ -4,6 +4,8 @@
 
 输出的结果支持通过 `cowsay` 来显示，以增加趣味性。生成过的号码会记录在日志文件中，以便有需要时查验。
 
+![Demo](./img/demo.png)
+
 [English instruction](./README.md)
 
 ## 依赖
