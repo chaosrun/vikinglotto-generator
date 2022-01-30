@@ -15,12 +15,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def generate_main_numbers(generator: SystemRandom) -> List[int]:
+def generate_main_numbers(generator: SystemRandom, euro: bool) -> List[int]:
     # Generate main numbers
     result = []
 
     try:
-        result = generator.sample(list(range(1, 48 + 1)), 6)
+        max_number = 48 if not euro else 50
+        select_numbers = 6 if not euro else 5
+        result = generator.sample(list(range(1, max_number + 1)), select_numbers)
         result.sort()
     except Exception as e:
         logger.warning(f"Generate main numbers error: {e}", exc_info=True)
@@ -28,25 +30,28 @@ def generate_main_numbers(generator: SystemRandom) -> List[int]:
     return result
 
 
-def generate_bonus_number(generator: SystemRandom) -> int:
-    # Generate bonus number
+def generate_bonus_numbers(generator: SystemRandom, euro: bool) -> List[int]:
+    # Generate bonus numbers
     result = 0
 
     try:
-        result = generator.randint(1, 5)
+        result = [generator.randint(1, 5)] if not euro else generator.sample(list(range(1, 10 + 1)), 2)
+        result.sort()
     except Exception as e:
-        logger.warning(f"Generate bonus number error: {e}", exc_info=True)
+        logger.warning(f"Generate bonus numbers error: {e}", exc_info=True)
 
     return result
 
 
-def generate_text(main_numbers: List[int], bonus_number: int) -> str:
+def generate_text(main_numbers: List[int], bonus_numbers: List[int]) -> str:
     # Generate predict text string
     result = ""
 
     try:
-        result = (f"Main numbers:\t" + " ".join(f"({r:02})" for r in main_numbers) + "\n\n"
-                  f"Bonus number:\t({bonus_number:02})")
+        result = f"Main numbers:\t" + " ".join(f"({n:02})" for n in main_numbers) + "\n\n"
+        bonus_prefix = "Bonus number:\t" if len(bonus_numbers) == 1 else "Bonus numbers:\t"
+        bonus_text = " ".join(f"({n:02})" for n in bonus_numbers)
+        result += bonus_prefix + bonus_text
     except Exception as e:
         logger.warning(f"Generate text error: {e}", exc_info=True)
 
@@ -122,12 +127,13 @@ def main() -> bool:
     try:
         parser = ArgumentParser()
         parser.add_argument("--plain", action=BooleanOptionalAction, help="print the result in plain mode")
+        parser.add_argument("--euro", action=BooleanOptionalAction, help="generate numbers for Eurojackpot")
         args = parser.parse_args()
 
         secret_generator = SystemRandom()
-        main_numbers = generate_main_numbers(secret_generator)
-        bonus_number = generate_bonus_number(secret_generator)
-        text = generate_text(main_numbers, bonus_number)
+        main_numbers = generate_main_numbers(secret_generator, args.euro)
+        bonus_numbers = generate_bonus_numbers(secret_generator, args.euro)
+        text = generate_text(main_numbers, bonus_numbers)
         show_text(args.plain, text)
         result = True
     except Exception as e:

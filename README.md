@@ -1,7 +1,8 @@
 # vikinglotto-generator
 
-This program generates a set of randomly picked 
-[Vikinglotto](https://en.wikipedia.org/wiki/Vikinglotto) lottery numbers.
+This program can generate a set of randomly picked lottery numbers 
+for [Vikinglotto](https://en.wikipedia.org/wiki/Vikinglotto)
+and [Eurojackpot](https://en.wikipedia.org/wiki/Eurojackpot).
 
 The program's output supports showing the result using `cowsay` for added fun.
 The generated numbers are stored in a log file and can be reviewed if necessary. 
@@ -41,4 +42,10 @@ Without using `cowsay`, print the result directly:
 
 ```bash
 vikinglotto --plain
+```
+
+Generate numbers for Eurojackpot:
+
+```bash
+vikinglotto --euro
 ```
