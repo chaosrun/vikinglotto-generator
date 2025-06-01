@@ -32,10 +32,10 @@ def generate_main_numbers(generator: SystemRandom, euro: bool) -> List[int]:
 
 def generate_bonus_numbers(generator: SystemRandom, euro: bool) -> List[int]:
     # Generate bonus numbers
-    result = 0
+    result = []
 
     try:
-        result = [generator.randint(1, 5)] if not euro else generator.sample(list(range(1, 10 + 1)), 2)
+        result = [generator.randint(1, 5)] if not euro else generator.sample(list(range(1, 12 + 1)), 2)
         result.sort()
     except Exception as e:
         logger.warning(f"Generate bonus numbers error: {e}", exc_info=True)
