@@ -4,13 +4,6 @@ from secrets import SystemRandom
 from shutil import which
 from subprocess import run
 
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s %(message)s",
-    level=logging.INFO,
-    filename="vikinglotto.log",
-    filemode="a"
-)
 logger = logging.getLogger(__name__)
 
 
@@ -65,11 +58,23 @@ def show_text(plain: bool, text: str) -> bool:
     return show_plain(text) if plain else show_cowsay(text)
 
 
+def setup_logging(log_file: str) -> None:
+    logging.basicConfig(
+            format="%(asctime)s %(message)s",
+            level=logging.INFO,
+            filename=log_file,
+            filemode="a"
+    )
+
+
 def main() -> None:
     parser = ArgumentParser()
     parser.add_argument("--plain", action=BooleanOptionalAction, help="print the result in plain mode")
     parser.add_argument("--euro", action=BooleanOptionalAction, help="generate numbers for Eurojackpot")
+    parser.add_argument("--log", type=str, default="vikinglotto.log", help="path to log file")
     args = parser.parse_args()
+
+    setup_logging(args.log)
 
     secret_generator = SystemRandom()
     main_numbers = generate_main_numbers(secret_generator, args.euro)
